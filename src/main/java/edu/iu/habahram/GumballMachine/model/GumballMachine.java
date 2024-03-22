@@ -37,16 +37,19 @@ public class GumballMachine implements IGumballMachine {
 
     @Override
     public TransitionResult ejectQuarter() {
+        //TODO
         return null;
     }
 
     @Override
     public TransitionResult turnCrank() {
+        //TODO
         return null;
     }
 
     @Override
     public TransitionResult dispense() {
+        //TODO
         return null;
     }
 }
