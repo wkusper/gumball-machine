@@ -42,10 +42,7 @@ public class GumballService implements IGumballService{
         return null;
     }
 
-    @Override
-    public TransitionResult dispense(String id) {
-        return null;
-    }
+    
 
     @Override
     public List<GumballMachineRecord> findAll() throws IOException {
