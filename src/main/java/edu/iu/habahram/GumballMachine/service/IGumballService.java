@@ -10,7 +10,7 @@ public interface IGumballService {
     TransitionResult insertQuarter(String id) throws IOException;
     TransitionResult ejectQuarter(String id);
     TransitionResult turnCrank(String id);
-    TransitionResult dispense(String id);
+    
     List<GumballMachineRecord> findAll() throws IOException;
 
     GumballMachineRecord findById(String id) throws IOException;
