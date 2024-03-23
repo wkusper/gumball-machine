@@ -1,10 +1,10 @@
 package edu.iu.habahram.GumballMachine.model;
 
 public class GumballMachine implements IGumballMachine {
-    public final static String SOLD_OUT = "Out of Gumballs";
-    public final static String NO_QUARTER = "No Quarter";
-    public final static String HAS_QUARTER = "Has Quarter";
-    public final static String SOLD = "Gumball Sold";
+    final String SOLD_OUT = GumballMachineState.OUT_OF_GUMBALLS.name();
+    final String NO_QUARTER = GumballMachineState.NO_QUARTER.name();
+    final String HAS_QUARTER = GumballMachineState.HAS_QUARTER.name();
+    final String SOLD = GumballMachineState.GUMBALL_SOLD.name();
     private String id;
     String state = SOLD_OUT;
     int count = 0;
@@ -47,9 +47,25 @@ public class GumballMachine implements IGumballMachine {
         return null;
     }
 
-    
-    public TransitionResult dispense() {
-        //TODO
+    @Override
+    public void changeTheStateTo(GumballMachineState name) {
+
+    }
+
+    @Override
+    public Integer getCount() {
+        return count;
+    }
+
+    @Override
+    public String getTheStateName() {
         return null;
     }
+
+    @Override
+    public void releaseBall() {
+
+    }
+
+
 }

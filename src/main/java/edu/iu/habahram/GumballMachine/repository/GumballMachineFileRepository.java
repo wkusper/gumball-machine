@@ -2,6 +2,7 @@ package edu.iu.habahram.GumballMachine.repository;
 
 import edu.iu.habahram.GumballMachine.model.GumballMachine;
 import edu.iu.habahram.GumballMachine.model.GumballMachineRecord;
+import edu.iu.habahram.GumballMachine.model.GumballMachineState;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
@@ -85,7 +86,7 @@ public class GumballMachineFileRepository implements IGumballRepository {
         String id = UUID.randomUUID().toString();
         String state = gumballMachineRecord.getState();
         if (state == null) {
-            state = GumballMachine.NO_QUARTER;
+            state = GumballMachineState.NO_QUARTER.name();
         }
         GumballMachineRecord record = new GumballMachineRecord(id, state.trim(), gumballMachineRecord.getCount());
         String data = record.toLine(id);
