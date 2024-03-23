@@ -19,7 +19,6 @@ public class GumballMachine implements IGumballMachine {
     public TransitionResult insertQuarter() {
         boolean succeeded = false;
         String message = "";
-        String stateAfterTheAttempt = null;
         if (state.equalsIgnoreCase(HAS_QUARTER)) {
             message = "You can't insert another quarter";
         } else if (state.equalsIgnoreCase(NO_QUARTER)) {
@@ -31,8 +30,7 @@ public class GumballMachine implements IGumballMachine {
         } else if (state.equalsIgnoreCase(SOLD)) {
             message = "Please wait, we're already giving you a gumball";
         }
-        stateAfterTheAttempt = state;
-        return new TransitionResult(succeeded, message, stateAfterTheAttempt, count);
+        return new TransitionResult(succeeded, message, state, count);
     }
 
     @Override
