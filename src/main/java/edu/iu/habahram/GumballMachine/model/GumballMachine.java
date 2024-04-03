@@ -1,5 +1,9 @@
 package edu.iu.habahram.GumballMachine.model;
 
+import edu.iu.habahram.GumballMachine.repository.IGumballRepository;
+
+import java.io.IOException;
+
 public class GumballMachine implements IGumballMachine {
     final String SOLD_OUT = GumballMachineState.OUT_OF_GUMBALLS.name();
     final String NO_QUARTER = GumballMachineState.NO_QUARTER.name();
@@ -8,6 +12,7 @@ public class GumballMachine implements IGumballMachine {
     private String id;
     String state = SOLD_OUT;
     int count = 0;
+    IGumballRepository gumballRepository;
 
     public GumballMachine(String id, String state, int count) {
         this.id = id;
@@ -34,15 +39,29 @@ public class GumballMachine implements IGumballMachine {
     }
 
     @Override
-    public TransitionResult ejectQuarter() {
-        //TODO
-        return null;
+    public TransitionResult ejectQuarter() throws IOException {
+        GumballMachineRecord record = gumballRepository.findById(id);
+        IGumballMachine machine = new GumballMachine(record.getId(), record.getState(), record.getCount());
+        TransitionResult result = machine.ejectQuarter();
+        if (result.succeeded()) {
+            record.setState(result.stateAfter());
+            record.setCount(result.countAfter());
+            gumballRepository.save(record);
+        }
+        return result;
     }
 
     @Override
-    public TransitionResult turnCrank() {
-        //TODO
-        return null;
+    public TransitionResult turnCrank() throws IOException {
+        GumballMachineRecord record = gumballRepository.findById(id);
+        IGumballMachine machine = new GumballMachine(record.getId(), record.getState(), record.getCount());
+        TransitionResult result = machine.turnCrank();
+        if (result.succeeded()) {
+            record.setState(result.stateAfter());
+            record.setCount(result.countAfter());
+            gumballRepository.save(record);
+        }
+        return result;
     }
 
     @Override
