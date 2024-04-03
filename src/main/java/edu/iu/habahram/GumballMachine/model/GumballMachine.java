@@ -44,9 +44,7 @@ public class GumballMachine implements IGumballMachine {
         IGumballMachine machine = new GumballMachine(record.getId(), record.getState(), record.getCount());
         TransitionResult result = machine.ejectQuarter();
         if (result.succeeded()) {
-            record.setState(result.stateAfter());
-            record.setCount(result.countAfter());
-            gumballRepository.save(record);
+            recordHelper(result, record);
         }
         return result;
     }
@@ -57,11 +55,15 @@ public class GumballMachine implements IGumballMachine {
         IGumballMachine machine = new GumballMachine(record.getId(), record.getState(), record.getCount());
         TransitionResult result = machine.turnCrank();
         if (result.succeeded()) {
+            recordHelper(result, record);
+        }
+        return result;
+    }
+
+    public void recordHelper (TransitionResult result, GumballMachineRecord record) throws IOException {
             record.setState(result.stateAfter());
             record.setCount(result.countAfter());
             gumballRepository.save(record);
-        }
-        return result;
     }
 
     @Override
