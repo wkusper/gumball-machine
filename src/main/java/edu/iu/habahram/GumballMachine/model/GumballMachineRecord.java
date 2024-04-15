@@ -41,7 +41,7 @@ public final class GumballMachineRecord {
         GumballMachineRecord gumballMachineRecord = new
                 GumballMachineRecord(tokens[0],
                 tokens[1],
-                Integer.valueOf(tokens[2]));
+                Integer.parseInt(tokens[2].trim()));
         return gumballMachineRecord;
     }
 

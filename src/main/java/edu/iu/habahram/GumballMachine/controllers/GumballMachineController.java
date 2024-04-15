@@ -46,6 +46,7 @@ public class GumballMachineController {
         }
     }
 
+
     @PutMapping("/eject-quarter")
     public TransitionResult ejectQuarter(@RequestBody TransitionRequest transitionRequest) {
         try {
@@ -63,4 +64,5 @@ public class GumballMachineController {
             throw new RuntimeException(e);
         }
     }
+
 }

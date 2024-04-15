@@ -1,7 +1,4 @@
 package edu.iu.habahram.GumballMachine.model;
-
-import edu.iu.habahram.GumballMachine.model.*;
-
 public class GumballMachine2 implements IGumballMachine{
     String id;
     IState soldOutState;

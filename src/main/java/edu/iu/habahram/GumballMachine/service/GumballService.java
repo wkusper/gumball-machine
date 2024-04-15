@@ -16,11 +16,10 @@ public class GumballService implements IGumballService{
         this.gumballRepository = gumballRepository;
     }
 
-    @Override
-    public TransitionResult insertQuarter(String id) throws IOException {
+    private TransitionResult transit(String id, Transition action) throws IOException {
         GumballMachineRecord record = gumballRepository.findById(id);
         IGumballMachine machine = new GumballMachine2(record.getId(), record.getState(), record.getCount());
-        TransitionResult result = machine.insertQuarter();
+        TransitionResult result = runTheMachine(machine, action);
         if(result.succeeded()) {
             record.setState(result.stateAfter());
             record.setCount(result.countAfter());
@@ -29,17 +28,53 @@ public class GumballService implements IGumballService{
         return result;
     }
 
+    private TransitionResult runTheMachine(IGumballMachine machine, Transition action) {
+        switch (action) {
+            case INSERT_QUARTER -> {
+                return machine.insertQuarter();
+            }
+            case EJECT_QUARTER -> {
+                try {
+                    return machine.ejectQuarter();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            case TURN_CRANK -> {
+                try {
+                    return machine.turnCrank();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public TransitionResult insertQuarter(String id) throws IOException {
+        return transit(id, Transition.INSERT_QUARTER);
+    }
+
     @Override
     public TransitionResult ejectQuarter(String id) {
-        return null;
+        try {
+            return transit(id, Transition.EJECT_QUARTER);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public TransitionResult turnCrank(String id) {
-        return null;
+        try {
+            return transit(id, Transition.TURN_CRANK);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    
+
 
     @Override
     public List<GumballMachineRecord> findAll() throws IOException {
