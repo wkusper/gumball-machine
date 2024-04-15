@@ -23,7 +23,7 @@ public class HasQuarterState implements IState{
 
         gumballMachine.changeTheStateTo(GumballMachineState.GUMBALL_SOLD);
         String message = "You turned the crank";
-        boolean succeeded = false;
+        boolean succeeded = true;
         return new TransitionResult(succeeded, message, gumballMachine.getTheStateName(), gumballMachine.getCount());
     }
     @Override
