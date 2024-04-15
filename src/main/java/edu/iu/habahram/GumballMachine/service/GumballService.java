@@ -90,4 +90,12 @@ public class GumballService implements IGumballService{
     public String save(GumballMachineRecord gumballMachineRecord) throws IOException {
         return gumballRepository.save(gumballMachineRecord);
     }
+
+    public TransitionResult refill(String id, int count) {
+        try {
+            return transit(id, Transition.REFILL);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

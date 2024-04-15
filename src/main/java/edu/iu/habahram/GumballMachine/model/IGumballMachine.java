@@ -6,6 +6,7 @@ public interface IGumballMachine {
     TransitionResult insertQuarter();
     TransitionResult ejectQuarter() throws IOException;
     TransitionResult turnCrank() throws IOException;
+    TransitionResult refill() throws IOException;
     void changeTheStateTo(GumballMachineState name);
     Integer getCount();
     String getTheStateName();

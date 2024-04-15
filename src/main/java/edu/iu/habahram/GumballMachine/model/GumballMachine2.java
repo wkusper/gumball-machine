@@ -58,6 +58,10 @@ public class GumballMachine2 implements IGumballMachine{
 
         return state.dispense();
     }
+    public TransitionResult refill(int refill) {
+        count = count + refill;
+        return new TransitionResult(true, "Machine is refilled", state.getTheName(), count);
+    }
 
     @Override
     public void releaseBall() {
